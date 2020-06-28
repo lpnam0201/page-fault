@@ -2,17 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 
-int defaultReferencedSequence[] = { 1, 8, 5, 2, 1, 3, 2, 5, 0, 0, 7 };
+int defaultReferencedSequence[] = {1, 8, 5, 2, 1, 3, 2, 5, 0, 0, 7};
 
-int* determineSequence(int sequenceType, int* n)
+int *determineSequence(int sequenceType, int *n)
 {
-    int* sequence;
-    if (sequenceType == 1) {
+    int *sequence;
+    if (sequenceType == 1)
+    {
         sequence = defaultReferencedSequence;
         *n = sizeof(defaultReferencedSequence) / sizeof(defaultReferencedSequence[0]);
     }
 
-    if (sequenceType == 2) {
+    if (sequenceType == 2)
+    {
         int nInp = 0;
         printf("\nSequence count n = ");
         scanf("%d", &nInp);
@@ -20,7 +22,8 @@ int* determineSequence(int sequenceType, int* n)
 
         printf("\nInput sequence = ");
         sequence = malloc(sizeof(int) * nInp);
-        for (int i = 0; i < nInp; i++) {
+        for (int i = 0; i < nInp; i++)
+        {
             scanf("%d", &sequence[i]);
         }
     }
@@ -28,7 +31,8 @@ int* determineSequence(int sequenceType, int* n)
     return sequence;
 }
 
-int inputSequenceType() {
+int inputSequenceType()
+{
     int sequenceType = 0;
     printf("---Page Replacement algorithm---");
     printf("\n1. Default referenced sequence");
@@ -39,7 +43,8 @@ int inputSequenceType() {
     return sequenceType;
 }
 
-int inputPageFrame() {
+int inputPageFrame()
+{
     int pageFrame = 0;
     printf("\nInput page frames = ");
     scanf("%d", &pageFrame);
@@ -47,33 +52,56 @@ int inputPageFrame() {
     return pageFrame;
 }
 
-int inputAlgorithm() {
+int inputAlgorithm()
+{
     int algorithm = 0;
     printf("\n1. FIFO");
     printf("\n2. OPT");
     printf("\n3. LRU");
     printf("\nInput algorithm = ");
     scanf("%d", &algorithm);
-    
+
     return algorithm;
 }
 
-int** initResult(int pageFrame, int n) {
-    int** result = malloc((pageFrame + 1) * sizeof(int*));
-    for (int i = 0; i < n; i++) {
+int **initResult(int pageFrame, int n)
+{
+    int **result = malloc((pageFrame + 1) * sizeof(int *));
+    for (int i = 0; i < n; i++)
+    {
         result[i] = malloc(n * sizeof(int));
     }
 
-    for (int i = 0; i < pageFrame; i++) {
-        for (int j = 0; j < n; j++) {
+    for (int i = 0; i < pageFrame; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
             result[i][j] = -1;
         }
     }
 
     // Asterisk row
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         result[pageFrame][i] = 0;
     }
 
     return result;
+}
+
+void output(int **result, int pageFrame, int n)
+{
+    for (int i = 0; i < pageFrame; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            printf("%d ", result[i][j]);
+        }
+        printf("\n");
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", result[pageFrame][i]);
+    }
 }
