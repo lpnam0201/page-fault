@@ -2,7 +2,7 @@
 
 bool hasPage(int **result, int column, int pageFrame, int pageToFind)
 {
-    for (int i = 0; i < pageFrame - 1; i++)
+    for (int i = 0; i < pageFrame; i++)
     {
         if (result[i][column] == pageToFind)
         {
@@ -26,12 +26,25 @@ int findEmptyFrame(int **result, int column, int pageFrame)
     return -1;
 }
 
+void copyPreviousFrameState(int **result, int currentSequenceIndex, int pageFrame) {
+    if (currentSequenceIndex == 0) 
+    {
+        return;
+    }
+
+    for (int i = 0; i < pageFrame; i++) 
+    {
+        result[i][currentSequenceIndex] = result[i][currentSequenceIndex - 1];
+    }
+}
+
 void fifo(int *sequence, int n, int pageFrame, int **result)
 {
     int currentFrameIndex = 0;
 
     for (int i = 0; i < n; i++)
     {
+        copyPreviousFrameState(result, i, pageFrame);
         if (!hasPage(result, i, pageFrame, sequence[i]))
         {
             int emptyFrameIndex = findEmptyFrame(result, i, pageFrame);

@@ -89,19 +89,39 @@ int **initResult(int pageFrame, int n)
     return result;
 }
 
-void output(int **result, int pageFrame, int n)
+void output(int **result, int pageFrame, int n, int *sequence)
 {
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", sequence[i]);
+    }
+    printf("\n\n");
+
     for (int i = 0; i < pageFrame; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            printf("%d ", result[i][j]);
+            if (result[i][j] == -1) 
+            {
+                printf("_ ");
+            }
+            else
+            {
+                printf("%d ", result[i][j]);
+            }
         }
         printf("\n");
     }
 
     for (int i = 0; i < n; i++)
     {
-        printf("%d ", result[pageFrame][i]);
+        if (result[pageFrame][i] == 1) 
+        {
+            printf("* ");
+        }
+        else 
+        {
+            printf("  ");
+        }
     }
 }
